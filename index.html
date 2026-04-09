@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Gareth Cowan — Sales Dashboard</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green: #008060;
+    --green-light: #00a674;
+    --accent: #00d4a1;
+    --green-bg: #e6f4f0;
+    --red: #dc2626;
+    --red-bg: #fef2f2;
+    --amber: #d97706;
+    --amber-bg: #fffbeb;
+    --blue: #2563eb;
+    --blue-bg: #eff6ff;
+    --dark: #111827;
+    --surface: #1e293b;
+    --white: #ffffff;
+    --gray-50: #f8fafc;
+    --gray-100: #f1f5f9;
+    --gray-200: #e2e8f0;
+    --gray-300: #cbd5e1;
+    --gray-400: #94a3b8;
+    --gray-500: #64748b;
+    --gray-700: #334155;
+    --gray-900: #0f172a;
+  }
+
+  body { font-family: 'Inter', sans-serif; background: var(--gray-50); color: var(--gray-900); }
+
+  .header { background: var(--dark); color: var(--white); padding: 20px 32px; display: flex; justify-content: space-between; align-items: center; }
+  .header h1 { font-size: 20px; font-weight: 800; letter-spacing: -0.5px; }
+  .header span { font-size: 13px; color: var(--gray-400); }
+
+  .container { max-width: 1400px; margin: 0 auto; padding: 24px; }
+
+  .stats-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 24px; }
+  .stat-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: 12px; padding: 20px; }
+  .stat-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--gray-500); margin-bottom: 6px; }
+  .stat-value { font-size: 28px; font-weight: 900; letter-spacing: -1px; }
+  .stat-value.green { color: var(--green); }
+  .stat-sub { font-size: 12px; color: var(--gray-400); margin-top: 4px; }
+
+  .section-title { font-size: 16px; font-weight: 800; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .section-title .count { background: var(--gray-200); color: var(--gray-700); font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 10px; }
+
+  .pipeline-board { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 32px; }
+  .pipeline-col { background: var(--gray-100); border-radius: 12px; padding: 12px; min-height: 200px; }
+  .pipeline-col-header { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--gray-500); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid var(--gray-200); display: flex; justify-content: space-between; align-items: center; }
+  .col-count { background: var(--gray-300); color: var(--gray-700); font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 8px; }
+
+  .deal-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: 10px; padding: 14px; margin-bottom: 8px; cursor: default; transition: all 0.2s; border-left: 3px solid transparent; }
+  .deal-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.08); transform: translateY(-1px); }
+  .deal-card.hot { border-left-color: var(--red); }
+  .deal-card.active { border-left-color: var(--amber); }
+  .deal-card.new { border-left-color: var(--blue); }
+  .deal-card.low { border-left-color: var(--gray-300); }
+  .deal-card.stalled { border-left-color: var(--gray-400); opacity: 0.7; }
+  .deal-card.killed { border-left-color: var(--gray-300); opacity: 0.4; text-decoration: line-through; }
+
+  .deal-name { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+  .deal-revenue { font-size: 11px; color: var(--green); font-weight: 600; }
+  .deal-detail { font-size: 11px; color: var(--gray-500); margin-top: 6px; line-height: 1.4; }
+  .deal-tags { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 8px; }
+  .tag { font-size: 9px; font-weight: 600; padding: 2px 6px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .tag-hot { background: var(--red-bg); color: var(--red); }
+  .tag-active { background: var(--amber-bg); color: var(--amber); }
+  .tag-new { background: var(--blue-bg); color: var(--blue); }
+  .tag-partner { background: var(--green-bg); color: var(--green); }
+  .tag-au { background: #f5f3ff; color: #7c3aed; }
+  .tag-stalled { background: var(--gray-100); color: var(--gray-500); }
+
+  .tasks-section { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 32px; }
+  .task-list { background: var(--white); border: 1px solid var(--gray-200); border-radius: 12px; padding: 20px; }
+  .task-list h3 { font-size: 14px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .task-list h3 .dot { width: 8px; height: 8px; border-radius: 50%; }
+  .dot-red { background: var(--red); }
+  .dot-amber { background: var(--amber); }
+
+  .task-item { display: flex; align-items: flex-start; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--gray-100); font-size: 13px; }
+  .task-item:last-child { border-bottom: none; }
+  .task-check { width: 16px; height: 16px; border: 2px solid var(--gray-300); border-radius: 4px; flex-shrink: 0; margin-top: 2px; cursor: pointer; }
+  .task-check:hover { border-color: var(--green); }
+  .task-text { color: var(--gray-700); line-height: 1.4; }
+  .task-deal { font-weight: 600; color: var(--gray-900); }
+  .task-date { font-size: 11px; color: var(--gray-400); margin-top: 2px; }
+
+  .footer { text-align: center; padding: 24px; font-size: 11px; color: var(--gray-400); }
+
+  @media (max-width: 1024px) {
+    .stats-row { grid-template-columns: repeat(3, 1fr); }
+    .pipeline-board { grid-template-columns: 1fr; }
+    .tasks-section { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Sales Dashboard — Gareth Cowan</h1>
+  <span>Shopify Plus | B2B Acquisition | Last updated: April 9, 2026</span>
+</div>
+
+<div class="container">
+
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-label">Active Deals</div>
+      <div class="stat-value">14</div>
+      <div class="stat-sub">+5 new this week</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Pipeline Value</div>
+      <div class="stat-value green">$35M+</div>
+      <div class="stat-sub">Across all stages</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Hot Deals</div>
+      <div class="stat-value" style="color: var(--red);">4</div>
+      <div class="stat-sub">Halstead, H&A, Jane Diamond, IMPAK</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Demos This Week</div>
+      <div class="stat-value" style="color: var(--blue);">3</div>
+      <div class="stat-sub">H&A (4/7), Grind (4/8), Protecta (rescheduled)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Stalled / Dark</div>
+      <div class="stat-value" style="color: var(--amber);">3</div>
+      <div class="stat-sub">VP Records, Profillment, XS Sights (OOO)</div>
+    </div>
+  </div>
+
+  <div class="section-title">Pipeline Board <span class="count">14 deals</span></div>
+
+  <div class="pipeline-board">
+
+    <div class="pipeline-col">
+      <div class="pipeline-col-header">Discovery / New <span class="col-count">4</span></div>
+      
+      <div class="deal-card hot">
+        <div class="deal-name">IMPAK / Sorbent Systems</div>
+        <div class="deal-revenue">$3.5–25M</div>
+        <div class="deal-detail">Discovery 4/10. Magento migration. CGI cart (20yr old). NASA, Pfizer customers.</div>
+        <div class="deal-tags"><span class="tag tag-hot">Hot</span><span class="tag tag-new">New</span></div>
+      </div>
+
+      <div class="deal-card new">
+        <div class="deal-name">Sirchie</div>
+        <div class="deal-revenue">TBD</div>
+        <div class="deal-detail">Forensics/LE equipment. Magento. GSA Schedule. Discovery prep done.</div>
+        <div class="deal-tags"><span class="tag tag-new">New</span></div>
+      </div>
+
+      <div class="deal-card new">
+        <div class="deal-name">Upper Deck</div>
+        <div class="deal-revenue">TBD</div>
+        <div class="deal-detail">Reconnect call 4/10.</div>
+        <div class="deal-tags"><span class="tag tag-new">Reconnect</span></div>
+      </div>
+
+      <div class="deal-card active">
+        <div class="deal-name">In Vitro Technologies</div>
+        <div class="deal-revenue">TBD</div>
+        <div class="deal-detail">B2B life sciences. Melbourne, AU. Demo scheduling — time zone resolved.</div>
+        <div class="deal-tags"><span class="tag tag-au">Australia</span><span class="tag tag-partner">Convert Digital</span></div>
+      </div>
+    </div>
+
+    <div class="pipeline-col">
+      <div class="pipeline-col-header">Demo / Evaluation <span class="col-count">3</span></div>
+
+      <div class="deal-card active">
+        <div class="deal-name">Protecta</div>
+        <div class="deal-revenue">TBD</div>
+        <div class="deal-detail">Demo rescheduled (Chanel cancelled 4/8). New mktg mgr Paul Byrne introduced.</div>
+        <div class="deal-tags"><span class="tag tag-au">Australia</span><span class="tag tag-partner">Process Creative</span></div>
+      </div>
+
+      <div class="deal-card active">
+        <div class="deal-name">XS Sight Systems</div>
+        <div class="deal-revenue">$5–15M</div>
+        <div class="deal-detail">Post-discovery. Payments eligibility pending. Addison OOO until 4/13.</div>
+        <div class="deal-tags"><span class="tag tag-active">Waiting</span></div>
+      </div>
+
+      <div class="deal-card low">
+        <div class="deal-name">Grind Coffee Co.</div>
+        <div class="deal-revenue">$300K</div>
+        <div class="deal-detail">Advanced (not Plus). Square migration. Trial sent 4/8. D2C + B2B cafes.</div>
+        <div class="deal-tags"><span class="tag tag-new">Advanced</span></div>
+      </div>
+    </div>
+
+    <div class="pipeline-col">
+      <div class="pipeline-col-header">Partner Scoping <span class="col-count">3</span></div>
+
+      <div class="deal-card hot">
+        <div class="deal-name">Halstead Bead</div>
+        <div class="deal-revenue">$5–7M</div>
+        <div class="deal-detail">Makro intro done (4/8). Financial analysis sent to Brad (~$47K+/yr savings). Partner scoping underway.</div>
+        <div class="deal-tags"><span class="tag tag-hot">Closest to close</span><span class="tag tag-partner">Makro</span></div>
+      </div>
+
+      <div class="deal-card hot">
+        <div class="deal-name">Herbalist & Alchemist</div>
+        <div class="deal-revenue">~$2M</div>
+        <div class="deal-detail">Demo completed 4/7. Arctic Grey engaged. Plus vs Advanced justified (Prop 65 blocker).</div>
+        <div class="deal-tags"><span class="tag tag-hot">Hot</span><span class="tag tag-partner">Arctic Grey</span></div>
+      </div>
+
+      <div class="deal-card hot">
+        <div class="deal-name">Jane Diamond Brands</div>
+        <div class="deal-revenue">$4M AUD</div>
+        <div class="deal-detail">23 Digital sync done (4/8). Full spec reviewed. 8 suppliers, multi-brand cart, $150K+ build.</div>
+        <div class="deal-tags"><span class="tag tag-hot">Hot</span><span class="tag tag-au">Australia</span><span class="tag tag-partner">23 Digital</span></div>
+      </div>
+    </div>
+
+    <div class="pipeline-col">
+      <div class="pipeline-col-header">Stalled / Dark <span class="col-count">3</span></div>
+
+      <div class="deal-card stalled">
+        <div class="deal-name">VP Records</div>
+        <div class="deal-revenue">~$1M B2B</div>
+        <div class="deal-detail">Multiple follow-ups, no response. Already on Shopify POS. Competing vs BigCommerce B2B.</div>
+        <div class="deal-tags"><span class="tag tag-stalled">Dark</span></div>
+      </div>
+
+      <div class="deal-card stalled">
+        <div class="deal-name">Profillment</div>
+        <div class="deal-revenue"><$1M/mo</div>
+        <div class="deal-detail">COO (Tim) dark. Custom re-engagement webpage sent. Approval workflow solvable.</div>
+        <div class="deal-tags"><span class="tag tag-stalled">Dark</span></div>
+      </div>
+
+      <div class="deal-card stalled">
+        <div class="deal-name">Launch 3 Telecom</div>
+        <div class="deal-revenue">~$240K/yr</div>
+        <div class="deal-detail">Britney taking to owner. Follow-up sent. No response yet.</div>
+        <div class="deal-tags"><span class="tag tag-stalled">Waiting</span></div>
+      </div>
+    </div>
+
+    <div class="pipeline-col">
+      <div class="pipeline-col-header">Partner-Led / Other <span class="col-count">3</span></div>
+
+      <div class="deal-card active">
+        <div class="deal-name">Ontario Medical Supply</div>
+        <div class="deal-revenue">$300M</div>
+        <div class="deal-detail">Partner intro to Makro completed. Checking engagement status.</div>
+        <div class="deal-tags"><span class="tag tag-partner">Makro</span></div>
+      </div>
+
+      <div class="deal-card active">
+        <div class="deal-name">The Safety Source</div>
+        <div class="deal-revenue">$6M</div>
+        <div class="deal-detail">Partner-led. Merchant meeting 4/16.</div>
+        <div class="deal-tags"><span class="tag tag-partner">Partner-led</span></div>
+      </div>
+
+      <div class="deal-card killed">
+        <div class="deal-name">Watershed Group</div>
+        <div class="deal-revenue">$12M</div>
+        <div class="deal-detail">Killed 4/6. Breakup email sent.</div>
+        <div class="deal-tags"><span class="tag tag-stalled">Killed</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tasks-section">
+    <div class="task-list">
+      <h3><span class="dot dot-red"></span> Urgent Tasks</h3>
+      
+      <div class="task-item">
+        <div class="task-check"></div>
+        <div><div class="task-text"><span class="task-deal">Halstead Bead:</span> Awaiting Brad's written questions on financial analysis. May need Victoria on commercial call.</div><div class="task-date">Ongoing</div></div>
+      </div>
+      <div class="task-item">
+        <div class="task-check"></div>
+        <div><div class="task-text"><span class="task-deal">CPQ Access:</span> Still can't create quotes in Salesforce. Halstead approaching contract stage — urgent.</div><div class="task-date">Escalate this week</div></div>
+      </div>
+      <div class="task-item">
+        <div class="task-check"></div>
+        <div><div class="task-text"><span class="task-deal">IMPAK / Sorbent Systems:</span> Discovery call tomorrow. Prep complete.</div><div class="task-date">April 10</div></div>
+      </div>
+      <div class="task-item">
+        <div class="task-check"></div>
+        <div><div class="task-text"><span class="task-deal">Upper Deck:</span> Reconnect call tomorrow.</div><div class="task-date">April 10</div></div>
+      </div>
+      <div class="task-item">
+        <div class="task-check"></div>
+        <div><div class="task-text"><span class="task-deal">Protecta:</span> Reschedule demo with Chanel + Paul Byrne. Confirm new date.</div><div class="task-date">This week</div></div>
+      </div>
+      <div class="task-item">
+        <div class="task-check"></div>
+        <div><div class="task-text"><span class="task-deal">VP Records:</span> Decide: try different contact or mark as stalled? Discuss with Victoria.</div><div class="task-date">April 9 (1:1)</div></div>
+      </div>
+    </div>
+
+    <div class="task-list">
+      <h3><span class="dot dot-amber"></span> Follow-ups & Pending</h3>
+
+      <div class="task-item">
+        <div class="task-check"></div>
+        <div><div class="task-text"><span class="task-deal">XS Sights:</span> Addison back 4/13. Follow up on payments eligibility + schedule demo.</div><div class="task-date">April 13</div></div>
+      </div>
+      <div class="task-item">
+        <div class="task-check"></div>
+        <div><div class="task-text"><span class="task-deal">Herbalist & Alchemist:</span> Arctic Grey to provide scope of work. Follow up on partner engagement.</div><div class="task-date">This week</div></div>
+      </div>
+      <div class="task-item">
+        <div class="task-check"></div>
+        <div><div class="task-text"><span class="task-deal">Jane Diamond Brands:</span> SE briefing in progress. Partner demo scheduling with 23 Digital.</div><div class="task-date">Next week</div></div>
+      </div>
+      <div class="task-item">
+        <div class="task-check"></div>
+        <div><div class="task-text"><span class="task-deal">In Vitro Technologies:</span> Coordinate demo time (3-5 PM PT = 9-11 AM Melbourne). Brandon to prep.</div><div class="task-date">Next week</div></div>
+      </div>
+      <div class="task-item">
+        <div class="task-check"></div>
+        <div><div class="task-text"><span class="task-deal">The Safety Source:</span> Partner meeting with merchant 4/16. Prep POV.</div><div class="task-date">April 16</div></div>
+      </div>
+      <div class="task-item">
+        <div class="task-check"></div>
+        <div><div class="task-text"><span class="task-deal">Grind Coffee:</span> Wait for Maryann to test Advanced trial. Introduce partner if she wants help.</div><div class="task-date">2-3 weeks</div></div>
+      </div>
+      <div class="task-item">
+        <div class="task-check"></div>
+        <div><div class="task-text"><span class="task-deal">B2B Online Chicago:</span> May 4-6. Outreach strategy + on-site role to be defined with Victoria.</div><div class="task-date">Discuss April 9</div></div>
+      </div>
+      <div class="task-item">
+        <div class="task-check"></div>
+        <div><div class="task-text"><span class="task-deal">Launch 3 Telecom:</span> Follow up if no response by mid-week.</div><div class="task-date">April 11</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  Gareth Cowan | Shopify Plus | gareth.cowan@shopify.com | 778-917-9299<br>
+  Dashboard auto-generated. Not connected to Salesforce — for personal tracking only.
+</div>
+
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Deal Resources — Gareth Cowan</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #f8fafc; color: #0f172a; }
+  .header { background: #111827; color: #fff; padding: 20px 32px; display: flex; justify-content: space-between; align-items: center; }
+  .header h1 { font-size: 20px; font-weight: 800; }
+  .header a { color: #94a3b8; font-size: 13px; text-decoration: none; }
+  .header a:hover { color: #fff; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 24px; }
+  .deal-section { margin-bottom: 32px; }
+  .deal-header { font-size: 18px; font-weight: 800; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; display: flex; align-items: center; gap: 8px; }
+  .deal-header .tag { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px; text-transform: uppercase; }
+  .tag-hot { background: #fef2f2; color: #dc2626; }
+  .tag-active { background: #fffbeb; color: #d97706; }
+  .tag-new { background: #eff6ff; color: #2563eb; }
+  .tag-stalled { background: #f1f5f9; color: #64748b; }
+  .doc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+  .doc-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; transition: all 0.2s; text-decoration: none; color: inherit; display: block; }
+  .doc-card:hover { border-color: #008060; box-shadow: 0 2px 8px rgba(0,128,96,0.1); transform: translateY(-1px); }
+  .doc-type { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .doc-type.discovery { color: #2563eb; }
+  .doc-type.se-brief { color: #008060; }
+  .doc-type.partner { color: #7c3aed; }
+  .doc-type.presentation { color: #d97706; }
+  .doc-type.spreadsheet { color: #059669; }
+  .doc-type.webpage { color: #dc2626; }
+  .doc-type.recording { color: #64748b; }
+  .doc-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .doc-desc { font-size: 12px; color: #64748b; line-height: 1.4; }
+  .section-divider { height: 1px; background: #e2e8f0; margin: 32px 0; }
+  .general-section { margin-top: 32px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Deal Resources & Documents</h1>
+  <a href="https://garethcowan-crypto.github.io/sales-dash/">&larr; Back to Dashboard</a>
+</div>
+
+<div class="container">
+
+<!-- HALSTEAD BEAD -->
+<div class="deal-section">
+  <div class="deal-header">Halstead Bead <span class="tag tag-hot">Closest to Close</span></div>
+  <div class="doc-grid">
+    <a href="https://docs.google.com/document/d/1TJDucTRE0qH_tiSzXUdnTPeSMiWyfEm2SNwLumlGqkQ/edit" class="doc-card" target="_blank"><div class="doc-type discovery">Discovery</div><div class="doc-title">Discovery Call Notes</div><div class="doc-desc">Initial discovery notes from first engagement</div></a>
+    <a href="https://docs.google.com/document/d/1WFNcyNbLouFXgrMZSWU1i7glA9Z9Hl52BwfeQDPVHm8/edit" class="doc-card" target="_blank"><div class="doc-type recording">Gemini Notes</div><div class="doc-title">Reverse Demo Notes (3/24)</div><div class="doc-desc">Jason walkthrough of Znode workflows</div></a>
+    <a href="https://drive.google.com/file/d/1u0IJxLyynYveQKV9og2jZ4A2ICOTQzTM" class="doc-card" target="_blank"><div class="doc-type recording">Recording</div><div class="doc-title">Reverse Demo Recording (3/24)</div><div class="doc-desc">Full call recording</div></a>
+    <a href="https://docs.google.com/document/d/1Hv3FNHlSddZLBwS7HCf56IlUkGclNO0S43KzG1BcJ04/edit" class="doc-card" target="_blank"><div class="doc-type recording">Gemini Notes</div><div class="doc-title">B2B Demo Notes (4/1)</div><div class="doc-desc">Demo summary, next steps, key decisions</div></a>
+    <a href="https://drive.google.com/file/d/1EbdCrAz9DErYyiGMtptlNZMX6OTSheMK" class="doc-card" target="_blank"><div class="doc-type recording">Recording</div><div class="doc-title">B2B Demo Recording (4/1)</div><div class="doc-desc">Full demo call recording</div></a>
+    <a href="https://docs.google.com/presentation/d/12r6DFM09zmxbITgd9g0NTfXJfSLjlXbHfR48Ygzquts/edit" class="doc-card" target="_blank"><div class="doc-type presentation">Presentation</div><div class="doc-title">Demo Presentation (5 slides)</div><div class="doc-desc">Current state, future state, value — Shopify branded</div></a>
+    <a href="https://docs.google.com/spreadsheets/d/1AcRJhOSqN_zNU9MAuSBHBJotBlDuxmmHZXmkNRtautc/edit" class="doc-card" target="_blank"><div class="doc-type spreadsheet">Spreadsheet</div><div class="doc-title">Payment Rate Comparison (BT + PayPal)</div><div class="doc-desc">1,550 transactions analyzed. ~$47K+/yr savings. Tax billability tab.</div></a>
+    <a href="https://docs.google.com/presentation/d/1_GbVAwuYASdX7zbXW8SPIPpvFvnBL1BgfugJhRPoyaw/edit" class="doc-card" target="_blank"><div class="doc-type presentation">Presentation</div><div class="doc-title">Cost Savings One-Pager + Math Appendix</div><div class="doc-desc">For Brad (finance). Hard + soft cost breakdown.</div></a>
+    <a href="https://docs.google.com/document/d/17kVpOnkpWwCoNoYMOQBjJSnvVg6IPar4UxyxebJxfSY/edit" class="doc-card" target="_blank"><div class="doc-type partner">Partner Brief</div><div class="doc-title">Partner Briefing — Makro Agency</div><div class="doc-desc">Makro-specific with competitive positioning</div></a>
+    <a href="https://docs.google.com/document/d/1Bfejv-x-oSnOjBLd9chbFt-zEzjviAtlWaABbdpZr9E/edit" class="doc-card" target="_blank"><div class="doc-type partner">Partner Brief</div><div class="doc-title">Partner Briefing — General</div><div class="doc-desc">Shareable with any partner (Symmetry, etc.)</div></a>
+  </div>
+</div>
+
+<!-- HERBALIST & ALCHEMIST -->
+<div class="deal-section">
+  <div class="deal-header">Herbalist & Alchemist <span class="tag tag-hot">Hot</span></div>
+  <div class="doc-grid">
+    <a href="https://docs.google.com/document/d/1H857AM3IPW7nbJ_x6J3b4NL69qwQGuP2MpL_kU5RN4E/edit" class="doc-card" target="_blank"><div class="doc-type se-brief">SE Briefing</div><div class="doc-title">SE Briefing — H&A</div><div class="doc-desc">Full technical context. Sage 300, hazmat, Prop 65, Plus vs Advanced.</div></a>
+    <a href="https://docs.google.com/document/d/1O4bFX0pJjMldcUdT9ZWcPbS5oTb12R91pkNW3iKF-ek/edit" class="doc-card" target="_blank"><div class="doc-type partner">Partner Brief</div><div class="doc-title">Partner Briefing — H&A</div><div class="doc-desc">For implementation partners. Full scope of work.</div></a>
+    <a href="https://docs.google.com/presentation/d/15EanF5KW31EIfm1kIJsENC7g3tpRqBzpYNHM2T5Pm4I/edit" class="doc-card" target="_blank"><div class="doc-type presentation">Presentation</div><div class="doc-title">Why Shopify Plus (vs Advanced)</div><div class="doc-desc">One-pager: Prop 65 blocker, pricing breakdown, 7 reasons.</div></a>
+  </div>
+</div>
+
+<!-- JANE DIAMOND BRANDS -->
+<div class="deal-section">
+  <div class="deal-header">Jane Diamond Brands <span class="tag tag-hot">Hot</span> <span class="tag tag-new" style="background:#f5f3ff;color:#7c3aed;">Australia</span></div>
+  <div class="doc-grid">
+    <a href="https://docs.google.com/document/d/1QLOvwGEVYBjeNkrzb2MsKA9Xz_R9fUp_osSYg4SB6x8/edit" class="doc-card" target="_blank"><div class="doc-type recording">Gemini Notes</div><div class="doc-title">Vanessa Kadamani Call Notes (3/31)</div><div class="doc-desc">23 Digital partner sync. $150K+ AUD build.</div></a>
+  </div>
+</div>
+
+<!-- UPPER DECK -->
+<div class="deal-section">
+  <div class="deal-header">Upper Deck <span class="tag tag-hot">Largest Deal</span></div>
+  <div class="doc-grid">
+    <a href="https://docs.google.com/document/d/1EjxNwjUNTu_0Fi35JbQyL-Z1e-qwjSliV8nz9EogSo8/edit" class="doc-card" target="_blank"><div class="doc-type discovery">Discovery Prep</div><div class="doc-title">Discovery Prep — Upper Deck</div><div class="doc-desc">$132M revenue. Trading cards. D2C + B2B. e-Pack digital platform.</div></a>
+  </div>
+</div>
+
+<!-- IMPAK / SORBENT SYSTEMS -->
+<div class="deal-section">
+  <div class="deal-header">IMPAK / Sorbent Systems <span class="tag tag-hot">Hot</span></div>
+  <div class="doc-grid">
+    <a href="https://docs.google.com/document/d/17g3IVILGVJ3iTSdpgxC6gvHyAK4Ql0jrIbD-jNwsnzU/edit" class="doc-card" target="_blank"><div class="doc-type discovery">Discovery Prep</div><div class="doc-title">Discovery Prep — IMPAK / Sorbent Systems</div><div class="doc-desc">Magento migration. CGI cart (20yr old). NASA, Pfizer customers.</div></a>
+  </div>
+</div>
+
+<!-- WESTON NURSERIES -->
+<div class="deal-section">
+  <div class="deal-header">Weston Nurseries <span class="tag tag-active">Active</span></div>
+  <div class="doc-grid">
+    <a href="https://docs.google.com/document/d/1heK68yjMzW_NRdwC5qChQPm4-hIndINpMbb2WtpxTb0/edit" class="doc-card" target="_blank"><div class="doc-type discovery">Discovery Framework</div><div class="doc-title">Discovery Framework — Weston Nurseries</div><div class="doc-desc">27 terminals, 4 locations, wholesale + retail, ERP transition.</div></a>
+    <a href="https://garethcowan-crypto.github.io/shopify-prospect-pages/weston.html" class="doc-card" target="_blank"><div class="doc-type webpage">Prospect Page</div><div class="doc-title">Weston Nurseries One-Pager (Live Site)</div><div class="doc-desc">POS, B2B, pricing, next steps. Shareable link.</div></a>
+  </div>
+</div>
+
+<!-- BBSPRO -->
+<div class="deal-section">
+  <div class="deal-header">BBSpro Services <span class="tag tag-new">New</span></div>
+  <div class="doc-grid">
+    <a href="https://docs.google.com/document/d/1Rfh002GxiVyFSVYW_OsmjuUFulnCcnXVc7ay2wYRb14/edit" class="doc-card" target="_blank"><div class="doc-type partner">Partner Brief</div><div class="doc-title">Partner Briefing — BBSpro</div><div class="doc-desc">Chemical manufacturer + draft systems. Sage 100 → QuickBooks. B2B reordering.</div></a>
+  </div>
+</div>
+
+<!-- VP RECORDS -->
+<div class="deal-section">
+  <div class="deal-header">VP Records <span class="tag tag-stalled">Dark</span></div>
+  <div class="doc-grid">
+    <a href="https://docs.google.com/presentation/d/1wyUwH804r3oPLmVOz1ADmiqZ36PQPa5Dyp8i2bqZRHI/edit" class="doc-card" target="_blank"><div class="doc-type presentation">Presentation</div><div class="doc-title">Pricing One-Pager (Google Slides)</div><div class="doc-desc">$2,300/mo covering B2B + both POS locations.</div></a>
+  </div>
+</div>
+
+<!-- XS SIGHTS -->
+<div class="deal-section">
+  <div class="deal-header">XS Sight Systems <span class="tag tag-active">Waiting</span></div>
+  <div class="doc-grid">
+    <a href="https://docs.google.com/document/d/1odpbWAkOPVlaD0y_5qm4nqWDX1dKRNZxRcjS13LGboI/edit" class="doc-card" target="_blank"><div class="doc-type discovery">Discovery Framework</div><div class="doc-title">XS Sights Discovery Framework</div><div class="doc-desc">BigCommerce migration, D2C + B2B, firearms accessories.</div></a>
+  </div>
+</div>
+
+<!-- PROFILLMENT -->
+<div class="deal-section">
+  <div class="deal-header">Profillment <span class="tag tag-stalled">Stalled</span></div>
+  <div class="doc-grid">
+    <a href="https://garethcowan-crypto.github.io/shopify-prospect-pages/" class="doc-card" target="_blank"><div class="doc-type webpage">Prospect Page</div><div class="doc-title">"Built for Profillment" (Live Site)</div><div class="doc-desc">Custom re-engagement page. Challenges mapped to solutions.</div></a>
+    <a href="https://docs.google.com/document/d/1jdT7Rdsq6I-MAQH7eeYNPaja9k1DWZiOIOpgrWbzpz0/edit" class="doc-card" target="_blank"><div class="doc-type se-brief">SE Briefing</div><div class="doc-title">Profillment SE Briefing</div><div class="doc-desc">Hospitality supply. Approval workflows, Acumatica, freight.</div></a>
+  </div>
+</div>
+
+<!-- GRIND COFFEE -->
+<div class="deal-section">
+  <div class="deal-header">Grind Coffee Co. <span class="tag tag-new">Advanced</span></div>
+  <div class="doc-grid">
+    <a href="https://docs.google.com/document/d/11Akj9TmMV7VuUjXLbnUejPNNxBHYViuA-f11uVNBzGA/edit" class="doc-card" target="_blank"><div class="doc-type discovery">Discovery Framework</div><div class="doc-title">Discovery Framework — Grind Coffee</div><div class="doc-desc">$300K revenue. Square migration. Wholesale cafes.</div></a>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- GENERAL RESOURCES -->
+<div class="general-section">
+  <div class="deal-header">General Resources</div>
+  <div class="doc-grid">
+    <a href="https://docs.google.com/presentation/d/1gRoySnMAZ5u8TXf2Rmh33Z5z7lZxph3Lm6PuLMlB2x4/edit" class="doc-card" target="_blank"><div class="doc-type presentation">Presentation</div><div class="doc-title">Shopify Plus Platform Comparison (6 slides)</div><div class="doc-desc">Shopify Plus vs BigCommerce vs Adobe Commerce</div></a>
+    <a href="https://docs.google.com/document/d/1-mFmcChTin4dqLZktDAT0uE1xdxS9ugYQRzM1mVxBHs/edit" class="doc-card" target="_blank"><div class="doc-type se-brief">Cheat Sheet</div><div class="doc-title">Shopify POS Cheat Sheet</div><div class="doc-desc">Pricing, features, hardware, vs Lightspeed, talking points</div></a>
+    <a href="https://docs.google.com/document/d/1JDwmZL9386QjBOl5AzuF-y8PhIpoPR5nlSd6MHAZHRg/edit" class="doc-card" target="_blank"><div class="doc-type discovery">Template</div><div class="doc-title">Plus Qualification — 15-Min Discovery Call</div><div class="doc-desc">5 qualifying questions for inbound leads</div></a>
+    <a href="https://docs.google.com/document/d/1mJkZIhmB5K4rm2_mnSJpiE3bBXUG4BGTIzLOx5Pc4Q4/edit" class="doc-card" target="_blank"><div class="doc-type se-brief">Weekly Doc</div><div class="doc-title">Weekly 1:1 — Victoria Forte</div><div class="doc-desc">Pipeline summary, deal updates, wins, asks</div></a>
+  </div>
+</div>
+
+</div>
+
+<div style="text-align:center;padding:24px;font-size:11px;color:#94a3b8;">
+  Gareth Cowan | Shopify Plus | gareth.cowan@shopify.com<br>
+  <a href="https://garethcowan-crypto.github.io/sales-dash/" style="color:#008060;text-decoration:none;">← Back to Dashboard</a>
+</div>
+
+</body>
+</html>
